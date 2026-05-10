@@ -30,6 +30,7 @@
               pkgs.nodejs
               pkgs.corepack
               pkgs.typescript-go
+              pkgs.just
             ]
             ++ lib.optional pkgs.stdenv.isLinux pkgs.inotify-tools
             ++ (lib.optionals pkgs.stdenv.isDarwin (
