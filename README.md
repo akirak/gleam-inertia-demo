@@ -50,3 +50,7 @@ Visit http://localhost:8000
 - Hot swapping support
 ### Packaging
 - Factor out the Inertia adapter
+
+## Thanks
+[wisp_inertia](https://github.com/keuller/wisp_inertia) package by Keuller
+Magalhães is an inspiration of this repository.
