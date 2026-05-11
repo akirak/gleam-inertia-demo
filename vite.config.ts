@@ -8,6 +8,14 @@ export default defineConfig({
   },
   base: "/static/",
   plugins: [inertia({ ssr: false }), react()],
+  css: {
+    transformer: "lightningcss",
+    lightningcss: {
+      cssModules: {
+        pattern: "[name]__[local]___[hash]",
+      },
+    },
+  },
   build: {
     outDir: "priv/static",
     emptyOutDir: false,
