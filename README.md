@@ -45,7 +45,7 @@ Visit http://localhost:8000
 - Allow only supported HTTP status codes
 ### Enhance the Web Site
 - CSS
-- Layout
+- ~~Layout~~
 ### Developer Experience
 - Hot swapping support
 ### Packaging
