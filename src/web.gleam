@@ -44,7 +44,6 @@ pub fn inertia_response(
   req: Request,
   ctx: Context,
   status: Int,
-  title: String,
   page: inertia.Page,
 ) -> Response {
   let url = req.path
@@ -55,7 +54,8 @@ pub fn inertia_response(
         html([], [
           html.head(
             [],
-            list.append([html.title([], title)], asset_scripts(ctx)),
+            // Titles should be inserted using Head component
+            asset_scripts(ctx),
           ),
           html.body([], inertia.app_script(url, page)),
         ])

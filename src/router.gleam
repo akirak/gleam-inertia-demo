@@ -32,7 +32,7 @@ fn home(req: web.Request, ctx: web.Context) -> web.Response {
       version: inertia.NullVersion,
     )
 
-  web.inertia_response(req, ctx, 200, "Demo", page)
+  web.inertia_response(req, ctx, 200, page)
 }
 
 fn greet(name: String, req: web.Request, ctx: web.Context) -> web.Response {
@@ -48,7 +48,7 @@ fn greet(name: String, req: web.Request, ctx: web.Context) -> web.Response {
       version: inertia.NullVersion,
     )
 
-  web.inertia_response(req, ctx, 200, "Greeting", page)
+  web.inertia_response(req, ctx, 200, page)
 }
 
 fn about(req: web.Request, ctx: web.Context) -> web.Response {
@@ -66,5 +66,5 @@ fn about(req: web.Request, ctx: web.Context) -> web.Response {
       version: inertia.NullVersion,
     )
 
-  web.inertia_response(req, ctx, 200, "About", page)
+  web.inertia_response(req, ctx, 200, page)
 }
