@@ -6,6 +6,17 @@ const vitePort = 4173;
 const baseURL = `http://${host}:${port}`;
 const viteOrigin = `http://${host}:${vitePort}`;
 const browserExecutablePath = process.env.PLAYWRIGHT_BROWSER_EXECUTABLE_PATH;
+const onlyChromium = process.env.PLAYWRIGHT_ONLY_CHROMIUM === "1";
+const chromiumUse = browserExecutablePath
+  ? {
+      ...devices["Desktop Chrome"],
+      launchOptions: { executablePath: browserExecutablePath },
+    }
+  : { ...devices["Desktop Chrome"] };
+const chromiumProject = {
+  name: "chromium",
+  use: chromiumUse,
+};
 const webServer = [
   {
     command: `pnpm dev --host ${host} --port ${vitePort} --strictPort`,
@@ -34,15 +45,23 @@ export default defineConfig({
   use: {
     baseURL,
     trace: "on-first-retry",
-    ...(browserExecutablePath ? { launchOptions: { executablePath: browserExecutablePath } } : {}),
   },
-  projects: [
-    {
-      name: "chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-      },
-    },
-  ],
+  projects: onlyChromium
+    ? [chromiumProject]
+    : [
+        chromiumProject,
+        {
+          name: "firefox",
+          use: {
+            ...devices["Desktop Firefox"],
+          },
+        },
+        {
+          name: "webkit",
+          use: {
+            ...devices["Desktop Safari"],
+          },
+        },
+      ],
   ...(process.env.PLAYWRIGHT_NO_WEBSERVER ? {} : { webServer }),
 });

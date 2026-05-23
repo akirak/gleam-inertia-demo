@@ -74,6 +74,7 @@
             shellHook = ''
               browser_executable="$(find -L '${playwright-browsers}' -name ${browserProgram} -type f)"
               export PLAYWRIGHT_BROWSER_EXECUTABLE_PATH="''${browser_executable}"
+              export PLAYWRIGHT_ONLY_CHROMIUM=1
             '';
           };
         };
