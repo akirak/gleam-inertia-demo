@@ -10,7 +10,10 @@
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "pnpm test:e2e",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
@@ -19,6 +22,7 @@
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.0",
     "@inertiajs/vite": "^3.1.1",
     "@types/react": "^19.2.15",
     "@vitejs/plugin-react": "^6.0.2",

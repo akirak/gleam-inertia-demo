@@ -66,6 +66,25 @@ To exit the processes being run with `just`, type `h`, `q`, `Ctrl-C`, and `a`. T
 
 Visit http://localhost:8000
 
+## End-to-End Tests
+
+Install the browser automation dependencies once:
+
+``` sh
+pnpm install
+pnpm exec playwright install --with-deps chromium
+```
+
+Run the E2E suite:
+
+``` sh
+pnpm test:e2e
+```
+
+Playwright starts both the Vite dev server and the Gleam application server for
+the test run. The initial suite covers the home page, client-side navigation to
+the About page, and the dynamic greet route.
+
 ## TODO
 ### Protocol
 - Page Object with Deferred Props

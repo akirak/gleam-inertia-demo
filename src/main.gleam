@@ -1,6 +1,7 @@
 import env
 import gleam/erlang/application
 import gleam/erlang/process
+import gleam/int
 import gleam/result
 import mist
 import router
@@ -14,10 +15,17 @@ pub fn main() {
   let assert Ok(_) =
     handler
     |> mist.new
-    |> mist.port(8000)
+    |> mist.port(port())
     |> mist.start
 
   process.sleep_forever()
+}
+
+fn port() -> Int {
+  case env.get("PORT") {
+    Ok(value) -> value |> int.parse |> result.unwrap(8000)
+    Error(_) -> 8000
+  }
 }
 
 fn static_directory() -> String {
