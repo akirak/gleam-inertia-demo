@@ -22,8 +22,8 @@
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.0",
     "@inertiajs/vite": "^3.1.1",
+    "@playwright/test": "^1.55.0",
     "@types/react": "^19.2.15",
     "@vitejs/plugin-react": "^6.0.2",
     "browserslist": "^4.28.2",
