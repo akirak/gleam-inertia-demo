@@ -1,28 +1,38 @@
 {
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # systems.url = "github:nix-systems/default";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "";
+    };
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
+    inputs@{
+      flake-parts,
+      nixpkgs,
+      treefmt-nix,
+      ...
+    }:
     let
       inherit (nixpkgs) lib;
-
-      eachSystem =
-        f:
-        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
-          system: f system nixpkgs.legacyPackages.${system}
-        );
-
       beamVersion = "beam28Packages";
     in
-    {
-      packages = eachSystem (_system: _pkgs: { });
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        treefmt-nix.flakeModule
+      ];
 
-      devShells = eachSystem (
-        _system: pkgs:
+      systems = lib.systems.flakeExposed;
+
+      perSystem =
+        { system, ... }:
         let
+          pkgs = nixpkgs.legacyPackages.${system};
+
           # Use only Chrome for E2E during local development
           playwright-browsers = pkgs.playwright-driver.browsers.override {
             withFirefox = false;
@@ -34,7 +44,14 @@
           browserProgram = if pkgs.stdenv.targetPlatform.isLinux then "chrome" else "Chromium";
         in
         {
-          default = pkgs.mkShell {
+          packages = { };
+
+          treefmt.programs = {
+            deadnix.enable = true;
+            nixfmt.enable = true;
+          };
+
+          devShells.default = pkgs.mkShell {
             packages = [
               pkgs.gleam
               pkgs.${beamVersion}.erlang
@@ -59,7 +76,6 @@
               export PLAYWRIGHT_BROWSER_EXECUTABLE_PATH="''${browser_executable}"
             '';
           };
-        }
-      );
+        };
     };
 }
