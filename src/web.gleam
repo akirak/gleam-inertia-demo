@@ -54,8 +54,12 @@ pub fn inertia_response(
         html([], [
           html.head(
             [],
-            // Titles should be inserted using Head component
-            asset_scripts(ctx),
+            [
+              html.title([], inertia.shell_title(page)),
+              // Keep the server HTML title in sync with the page object so
+            // the first paint does not depend on client-side head updates.
+            ]
+              |> list.append(asset_scripts(ctx)),
           ),
           html.body([], inertia.app_script(url, page)),
         ])

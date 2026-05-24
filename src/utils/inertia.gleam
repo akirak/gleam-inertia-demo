@@ -280,6 +280,23 @@ pub fn page_component_json(url: String, page: Page) -> json.Json {
   json.object(fields)
 }
 
+pub fn shell_title(page: Page) -> String {
+  let Page(component: component, ..) = page
+
+  case component {
+    "home" -> "Demo Home"
+    "about" -> "About"
+    "greet" -> "Greet"
+    "protocol/deferred" -> "Deferred Props"
+    "protocol/deferred_rescue" -> "Rescued Deferred Props"
+    "protocol/merge" -> "Merge Props"
+    "protocol/scroll" -> "Scroll Props"
+    "protocol/once/source" -> "Once Props"
+    "protocol/once/target" -> "Once Props Target"
+    _ -> "Demo"
+  }
+}
+
 pub fn is_inertia_request(request: request.Request(mist.Connection)) -> Bool {
   case header(request, "x-inertia") {
     Some(value) -> value == "true"
