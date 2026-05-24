@@ -24,7 +24,7 @@ fn home(req: web.Request, ctx: web.Context) -> web.Response {
   use <- web.require_methods(req, [Get, Head])
 
   let page =
-    inertia.Page(
+    inertia.page(
       component: "home",
       props: [
         #("errors", json.object([])),
@@ -39,7 +39,7 @@ fn greet(name: String, req: web.Request, ctx: web.Context) -> web.Response {
   use <- web.require_methods(req, [Get, Head])
 
   let page =
-    inertia.Page(
+    inertia.page(
       component: "greet",
       props: [
         #("name", json.string(name)),
@@ -57,7 +57,7 @@ fn about(req: web.Request, ctx: web.Context) -> web.Response {
   let version = get_system_version()
 
   let page =
-    inertia.Page(
+    inertia.page(
       component: "about",
       props: [
         #("systemVersion", json.string(version)),
