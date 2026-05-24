@@ -17,6 +17,21 @@ export default function Home() {
             <li>
               <Link href="/about">About</Link>
             </li>
+            <li>
+              <Link href="/protocol/deferred">Deferred props</Link>
+            </li>
+            <li>
+              <Link href="/protocol/deferred-rescue">Rescued deferred props</Link>
+            </li>
+            <li>
+              <Link href="/protocol/merge">Merge props</Link>
+            </li>
+            <li>
+              <Link href="/protocol/scroll">Scroll props</Link>
+            </li>
+            <li>
+              <Link href="/protocol/once/source">Once props</Link>
+            </li>
           </ul>
         </nav>
       </section>

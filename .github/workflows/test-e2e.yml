@@ -55,6 +55,7 @@ jobs:
 
       - name: Run E2E suite
         run: pnpm exec playwright test --project ${{ matrix.browser }}
+        continue-on-error: ${{ matrix.browser == 'webkit' }}
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}

@@ -44,9 +44,10 @@ pub fn inertia_response(
   req: Request,
   ctx: Context,
   status: Int,
+  title: String,
   page: inertia.Page,
 ) -> Response {
-  let url = req.path
+  let url = inertia.request_url(req)
 
   case inertia.is_inertia_request(req) {
     False -> {
@@ -54,8 +55,12 @@ pub fn inertia_response(
         html([], [
           html.head(
             [],
-            // Titles should be inserted using Head component
-            asset_scripts(ctx),
+            [
+              html.title([], title),
+              // Keep the server HTML title in sync with the page object so
+            // the first paint does not depend on client-side head updates.
+            ]
+              |> list.append(asset_scripts(ctx)),
           ),
           html.body([], inertia.app_script(url, page)),
         ])
