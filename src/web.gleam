@@ -44,6 +44,7 @@ pub fn inertia_response(
   req: Request,
   ctx: Context,
   status: Int,
+  title: String,
   page: inertia.Page,
 ) -> Response {
   let url = inertia.request_url(req)
@@ -55,7 +56,7 @@ pub fn inertia_response(
           html.head(
             [],
             [
-              html.title([], inertia.shell_title(page)),
+              html.title([], title),
               // Keep the server HTML title in sync with the page object so
             // the first paint does not depend on client-side head updates.
             ]

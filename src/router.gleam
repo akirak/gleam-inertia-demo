@@ -42,7 +42,7 @@ fn home(req: web.Request, ctx: web.Context) -> web.Response {
       version: inertia.NullVersion,
     )
 
-  web.inertia_response(req, ctx, 200, page)
+  web.inertia_response(req, ctx, 200, "Demo Home", page)
 }
 
 fn greet(name: String, req: web.Request, ctx: web.Context) -> web.Response {
@@ -58,7 +58,7 @@ fn greet(name: String, req: web.Request, ctx: web.Context) -> web.Response {
       version: inertia.NullVersion,
     )
 
-  web.inertia_response(req, ctx, 200, page)
+  web.inertia_response(req, ctx, 200, "Greet", page)
 }
 
 fn about(req: web.Request, ctx: web.Context) -> web.Response {
@@ -76,7 +76,7 @@ fn about(req: web.Request, ctx: web.Context) -> web.Response {
       version: inertia.NullVersion,
     )
 
-  web.inertia_response(req, ctx, 200, page)
+  web.inertia_response(req, ctx, 200, "About", page)
 }
 
 fn deferred_demo(req: web.Request, ctx: web.Context) -> web.Response {
@@ -128,7 +128,7 @@ fn deferred_demo(req: web.Request, ctx: web.Context) -> web.Response {
       #("insights", ["analytics"]),
     ])
 
-  web.inertia_response(req, ctx, 200, page)
+  web.inertia_response(req, ctx, 200, "Deferred Props", page)
 }
 
 fn deferred_rescue_demo(req: web.Request, ctx: web.Context) -> web.Response {
@@ -171,7 +171,7 @@ fn deferred_rescue_demo(req: web.Request, ctx: web.Context) -> web.Response {
       False -> []
     })
 
-  web.inertia_response(req, ctx, 200, page)
+  web.inertia_response(req, ctx, 200, "Rescued Deferred Props", page)
 }
 
 fn merge_demo(req: web.Request, ctx: web.Context) -> web.Response {
@@ -225,7 +225,7 @@ fn merge_demo(req: web.Request, ctx: web.Context) -> web.Response {
       ),
     )
 
-  web.inertia_response(req, ctx, 200, page)
+  web.inertia_response(req, ctx, 200, "Merge Props", page)
 }
 
 fn scroll_demo(req: web.Request, ctx: web.Context) -> web.Response {
@@ -269,7 +269,7 @@ fn scroll_demo(req: web.Request, ctx: web.Context) -> web.Response {
       ),
     ])
 
-  web.inertia_response(req, ctx, 200, page)
+  web.inertia_response(req, ctx, 200, "Scroll Props", page)
 }
 
 fn once_source_demo(req: web.Request, ctx: web.Context) -> web.Response {
@@ -278,6 +278,7 @@ fn once_source_demo(req: web.Request, ctx: web.Context) -> web.Response {
     req,
     ctx,
     200,
+    "Once Props",
     once_page(
       req,
       "protocol/once/source",
@@ -294,6 +295,7 @@ fn once_target_demo(req: web.Request, ctx: web.Context) -> web.Response {
     req,
     ctx,
     200,
+    "Once Props Target",
     once_page(
       req,
       "protocol/once/target",
