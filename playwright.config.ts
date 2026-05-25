@@ -27,7 +27,7 @@ const webServer = [
     timeout: 120 * 1000,
   },
   {
-    command: `PORT=${port} DEMO_WEB_ENV=development VITE_DEV_SERVER_ORIGIN=${viteOrigin} gleam run -m main`,
+    command: `PORT=${port} DEMO_WEB_ENV=development VITE_DEV_SERVER_ORIGIN=${viteOrigin} gleam run -m demo_web`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     stdout: "pipe" as const,
