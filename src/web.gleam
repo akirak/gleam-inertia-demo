@@ -60,7 +60,7 @@ pub fn inertia_response(
               // Keep the server HTML title in sync with the page object so
             // the first paint does not depend on client-side head updates.
             ]
-              |> list.append(asset_scripts(ctx)),
+              |> list.append(asset_tags(ctx)),
           ),
           html.body([], inertia.app_script(url, page)),
         ])
@@ -93,10 +93,14 @@ pub fn inertia_response(
   }
 }
 
-fn asset_scripts(ctx: Context) -> List(element.Element(msg)) {
+fn asset_tags(ctx: Context) -> List(element.Element(msg)) {
   let Context(assets: assets, ..) = ctx
   case assets {
     ProductionAssets -> [
+      html.link([
+        attribute.rel("stylesheet"),
+        attribute.href("/static/assets/app.css"),
+      ]),
       html.script(
         [
           attribute.type_("module"),
