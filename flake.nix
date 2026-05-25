@@ -56,6 +56,18 @@
         in
         {
           packages = {
+            # A self-contained package for deploying the entire app as a single
+            # container image
+            default = self.packages.${system}.server.overrideAttrs (old: {
+              nativeBuildInuts = (old.nativeBuildInputs or [ ]) ++ [
+                self.packages.${system}.client
+              ];
+
+              preBuild = ''
+                cp -ar "${self.packages.${system}.client}/share/priv" .
+              '';
+            });
+
             server = pkgs.callPackage ./gleam.nix {
               inherit (pkgs.${beamVersion}) erlang rebar3;
               src = lib.cleanSourceWith {
