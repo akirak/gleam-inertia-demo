@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  format-check:
+  check:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
