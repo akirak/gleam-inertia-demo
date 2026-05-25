@@ -104,6 +104,8 @@
               export PLAYWRIGHT_ONLY_CHROMIUM=1
             '';
           };
+
+          checks = self.packages.${system};
         };
     };
 }
