@@ -1,31 +1,76 @@
+import argv
+import clip
+import clip/help
+import clip/opt
 import env
 import gleam/erlang/application
 import gleam/erlang/process
 import gleam/int
+import gleam/io
 import gleam/result
 import mist
 import router
 import web
 
 pub fn main() {
-  let ctx = web.Context(static_directory: static_directory(), assets: assets())
+  case command() |> clip.run(argv.load().arguments) {
+    Ok(options) -> start_server(options)
+    Error(message) -> io.println_error(message)
+  }
+}
 
+fn start_server(options: Options) {
+  let ctx = web.Context(static_directory: static_directory(), assets: assets())
   let handler = router.make_handler(ctx)
 
   let assert Ok(_) =
     handler
     |> mist.new
-    |> mist.port(port())
+    |> mist.bind(bind_address(options))
+    |> mist.port(port(options))
     |> mist.start
 
   process.sleep_forever()
 }
 
-fn port() -> Int {
+type Options {
+  Options(port: Int, bind: String)
+}
+
+fn command() -> clip.Command(Options) {
+  clip.command({
+    use port <- clip.parameter
+    use bind <- clip.parameter
+
+    Options(port:, bind:)
+  })
+  |> clip.opt(
+    opt.new("port")
+    |> opt.int
+    |> opt.default(port_from_env())
+    |> opt.help("Port to listen on"),
+  )
+  |> clip.opt(
+    opt.new("bind")
+    |> opt.default("localhost")
+    |> opt.help("Bind address for the Mist server"),
+  )
+  |> clip.help(help.simple("demo_web", "Run the demo web server"))
+}
+
+fn port(options: Options) -> Int {
+  options.port
+}
+
+fn port_from_env() -> Int {
   case env.get("PORT") {
     Ok(value) -> value |> int.parse |> result.unwrap(8000)
     Error(_) -> 8000
   }
+}
+
+fn bind_address(options: Options) -> String {
+  options.bind
 }
 
 fn static_directory() -> String {
